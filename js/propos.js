@@ -2,7 +2,7 @@
 $(window).on('load', function () {
   $("#preloader").fadeOut('slow');
 });
-// *************** MENU 
+// *************** MENU
 $('.trigger').click(function() {
   // $('.footer').toggleClass('close');
 
@@ -38,9 +38,7 @@ $('.mobile .trigger').on("click tap", function() {
 
 gsap.registerPlugin(SplitText);
 
-    var flou = gsap.timeline( { 
-       
-    });
+    const flou = gsap.timeline( {  });
     mySplitText = new SplitText(".section-principal", { type: "words,chars" }),
     chars = mySplitText.chars; //an array of all the divs that wrap each character
 
@@ -51,7 +49,3 @@ gsap.registerPlugin(SplitText);
       ease: "back",
       stagger: 0.0025
     });
-
-
-
-

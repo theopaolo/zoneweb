@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr-FR">
+<html lang="fr">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -195,12 +195,12 @@ $(window).on('load', function () {
   $("#preloader").fadeOut('slow');
 });
 
-// ************** Avant après ************** 
+// ************** Avant après **************
 Cocoen.create(
   document.querySelector('.cocoen')
   );
 
-// ************** HIDE MENU ON SCROLL ************** 
+// ************** HIDE MENU ON SCROLL **************
 let lastScrollTop =
   window.scrollY || document.documentElement.scrollTop;
 
@@ -221,7 +221,7 @@ window.addEventListener(
   false,
 );
 
-// ************** CONTACT ************** 
+// ************** CONTACT **************
 $('.trigger').click(function() {
     if ($(document).innerHeight() < $(window).height() * 3 ) {
        $('html, body').animate({
@@ -254,7 +254,7 @@ $('.mobile .trigger').on("click tap", function() {
 });
 
 
-// ************** SLICK ************** 
+// ************** SLICK **************
 $(function() {
   $('.slider-project').slick({
     draggable: false,
@@ -333,7 +333,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* START
-    // var tl0 = gsap.timeline( { 
+    // var tl0 = gsap.timeline( {
     //     scrollTrigger: {
     //         scrub: true,
     //         trigger:"body",
@@ -352,7 +352,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* ZOOOM
-    var flou = gsap.timeline( { 
+    var flou = gsap.timeline( {
         scrollTrigger: {
             scrub: false,
             trigger:".section-text",
@@ -373,7 +373,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* MENU
-    // var color = gsap.timeline( { 
+    // var color = gsap.timeline( {
     //     scrollTrigger: {
     //         scrub: true,
     //         trigger:"#section5",
@@ -392,7 +392,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
   },
-  // all 
+  // all
   "all": function() {
 
   }

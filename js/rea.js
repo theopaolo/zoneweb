@@ -1,8 +1,8 @@
 // *************** PRELOADER
-$(window).on('load', function () {
-  $("#preloader").fadeOut('slow');
-});
-// ************** HIDE MENU ON SCROLL ************** 
+// $(window).on('load', function () {
+//   $("#preloader").fadeOut('slow');
+// });
+// ************** HIDE MENU ON SCROLL **************
 let lastScrollTop =
   window.scrollY || document.documentElement.scrollTop;
 
@@ -23,7 +23,7 @@ window.addEventListener(
   false,
 );
 
-// *************** MENU 
+// *************** MENU
 $('.trigger').click(function() {
   // $('.footer').toggleClass('close');
 

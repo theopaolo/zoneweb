@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr-FR">
+<html lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/fonts/stylesheet.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/fullpage/fullpage.min.css" />
 
-    <link rel="stylesheet" href="trans/css/style.css"> <!-- Resource style -->
-    <script src="trans/js/modernizr.js"></script> <!-- Modernizr -->
+    <!--  <link rel="stylesheet" href="trans/css/style.css"> Resource style -->
+    <!--  <script src="trans/js/modernizr.js"></script> Modernizr -->
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,13 +25,13 @@
 
 <body id="top" class="amenagement index-fr cd-about">
 
-<div id="preloader" >
+<!-- <div id="preloader" >
   <div class="container-fluid">
     <div class="image-contain">
       <img src="images/loading.gif" width="38" height="38">
     </div>
   </div>
-</div>
+</div> -->
 
 <nav class="navbar navbar-expand-lg ">
     <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-0">
@@ -77,7 +78,7 @@
 </div>
 
 
-<main>
+<main id="swup" class="transition-fade">
         <div class="section h-100 section-full white">
             <img style="width:100%;height:100%;object-fit: cover;" src="images/am_1.jpg" alt="Image description">
         </div>
@@ -139,6 +140,10 @@
           </div>
 </main>
 
+<div id="page-transition-overlay">
+    <div id="loader"></div>
+</div>
+
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 
 <script src="js/bootstrap/bootstrap.min.js"></script>
@@ -149,7 +154,10 @@
 <script src="js/gsap/ScrollToPlugin.min.js"></script>
 <script src="js/gsap/SplitText.min.js"></script>
 
-<script src="js/amen.js"></script>
+<!-- <script src="js/amen.js"></script> -->
+<!-- <script src="js/amena.js"></script> -->
+
+<script src="js/app.js"></script>
 
 </body>
 </html>

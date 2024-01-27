@@ -184,7 +184,7 @@ ul{
 
 .projets .section_3{
   position: relative;
-}  
+}
 .projets .section_3 .ok{
     height: 65%;
     position: relative;
@@ -650,10 +650,10 @@ color: #000 !important;
     }
     .desktop{
         display: none;
-    }   
+    }
 }
 @media screen and (max-width: 1450px) {
-    
+
 }
 @media screen and (max-width: 1100px) {
     #logo {
@@ -663,4 +663,39 @@ color: #000 !important;
     .slide-arrow{
         display: none !important;
     }
+}
+
+/* Transition */
+
+#page-transition-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background-color: #FFFFFF ;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* #loader {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #DDDDDD;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+} */
+
+.image-contain{
+    background-image:url(../images/logo_preload.png);
+    height:100%;
+    position:relative;
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    width:100%;
+    text-align: center;
 }

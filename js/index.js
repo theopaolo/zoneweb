@@ -1,7 +1,7 @@
 // *************** PRELOADER
-$(window).on('load', function () {
-  $("#preloader").fadeOut('slow');
-});
+// $(window).on('load', function () {
+//   $("#preloader").fadeOut('slow');
+// });
 // *************** INDEX
 $('.conta').on("click tap", function() {
   // $('.footer').toggleClass('close');
@@ -22,7 +22,7 @@ $('.mobile .trigger').on("click tap", function() {
     }, 2000);
     return false;
 });
-// ************** FULLPAGE ************** 
+// ************** FULLPAGE **************
 new fullpage('#fullpage', {
     navigation: true,
     animateAnchor: true,
@@ -37,5 +37,4 @@ new fullpage('#fullpage', {
         }
     }
 });
-// ************** END FULLPAGE ************** 
-
+// ************** END FULLPAGE **************
