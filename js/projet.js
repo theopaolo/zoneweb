@@ -1,7 +1,7 @@
 
-$(window).on('load', function () {
-  $("#preloader").fadeOut('slow');
-});
+// $(window).on('load', function () {
+//   $("#preloader").fadeOut('slow');
+// });
 
 // ************** Avant après **************
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
 });
 
-// ************** HIDE MENU ON SCROLL ************** 
+// ************** HIDE MENU ON SCROLL **************
 let lastScrollTop =
   window.scrollY || document.documentElement.scrollTop;
 
@@ -41,7 +41,7 @@ window.addEventListener(
   false,
 );
 
-// ************** CONTACT ************** 
+// ************** CONTACT **************
 $('.trigger').click(function() {
     if ($(document).innerHeight() < $(window).height() * 3 ) {
        $('html, body').animate({
@@ -74,50 +74,49 @@ $('.mobile .trigger').on("click tap", function() {
 });
 
 
-// ************** SLICK ************** 
+// ************** SLICK **************
 $(function() {
+  // Initialize Slick Slider
   $('.slider-project').slick({
-    draggable: false,
-    useTransform:false,
-    infinite: false,
-    swipeToSlide:true,
-    speed: 600,
-    centerMode: true,
-    variableWidth: true,
-    prevArrow: $('.prev-arrow'),
-    nextArrow: $('.next-arrow')
+      draggable: false,
+      useTransform: false,
+      infinite: false,
+      swipeToSlide: true,
+      speed: 600,
+      centerMode: true,
+      variableWidth: true,
+      prevArrow: $('.prev-arrow'),
+      nextArrow: $('.next-arrow')
   });
- });
 
+  // Keyboard Navigation for Slick Slider
+  var $carousel = $('.slider-project');
+  $(document).on('keydown', function(e) {
+      if (e.keyCode === 37) { // Left arrow key
+          $carousel.slick('slickPrev');
+      } else if (e.keyCode === 39) { // Right arrow key
+          $carousel.slick('slickNext');
+      }
+  });
 
-var $carousel = $('.slider-project');
-$(document).on('keydown', function(e) {
-    if(e.keyCode == 37) {
-        $carousel.slick('slickPrev');
-    }
-    if(e.keyCode == 39) {
-        $carousel.slick('slickNext');
-    }
+  // Initialize LightGallery
+  $(window).on('load', function() {
+      $('.slider-project').each(function() {
+          lightGallery(this, {
+              selector: '.lightgallery',
+              licenseKey: 'c7a99837-f764-4e02-b3e0-db68dd17f191',
+              counter: true,
+              download: false,
+              speed: 300,
+              plugins: [lgZoom],
+              showZoomInOutIcons: true,
+              thumbnail: true,
+              actualSize: false
+          });
+      });
+  });
 });
 
-window.addEventListener('load', function () {
-
-  var elements = document.getElementsByClassName('slider-project');
-  for (let item of elements) {
-      lightGallery(item, {
-        selector: '.lightgallery',
-        licenseKey: 'c7a99837-f764-4e02-b3e0-db68dd17f191',
-        counter:true,
-        download :false,
-        speed: 300,
-        plugins: [lgZoom],
-        // plugins: [lgThumbnail, lgFullscreen],
-        showZoomInOutIcons: true,
-        thumbnail: true,
-        actualSize: false
-      })
-  }
-});
 
 
 
@@ -153,7 +152,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* START
-    // var tl0 = gsap.timeline( { 
+    // var tl0 = gsap.timeline( {
     //     scrollTrigger: {
     //         scrub: true,
     //         trigger:"body",
@@ -172,7 +171,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* ZOOOM
-    var flou = gsap.timeline( { 
+    var flou = gsap.timeline( {
         scrollTrigger: {
             scrub: false,
             trigger:".section-text",
@@ -193,7 +192,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
 // ************* MENU
-    // var color = gsap.timeline( { 
+    // var color = gsap.timeline( {
     //     scrollTrigger: {
     //         scrub: true,
     //         trigger:"#section5",
@@ -212,7 +211,7 @@ const sections = gsap.utils.toArray('[data-dark-header]');
 
 
   },
-  // all 
+  // all
   "all": function() {
 
   }

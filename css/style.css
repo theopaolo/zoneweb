@@ -699,3 +699,7 @@ color: #000 !important;
     width:100%;
     text-align: center;
 }
+
+.section-full{
+    position: relative;
+}

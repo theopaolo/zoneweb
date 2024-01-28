@@ -1,7 +1,7 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
 
 function animateText(selector, timeline) {
-  console.log("animateText");
+  // console.log("animateText");
   const mySplitText = new SplitText(selector, { type: "words,chars" });
   const chars = mySplitText.chars;
 
@@ -14,7 +14,7 @@ function animateText(selector, timeline) {
 }
 
 function amenagementAnimation() {
-  console.log("handleProposPageAnimations");
+  // console.log("handleProposPageAnimations");
     ScrollTrigger.matchMedia({
       // large screens
       "(min-width: 1099px)": function () {
@@ -58,7 +58,7 @@ function amenagementAnimation() {
 }
 
 function proposSplit() {
-  console.log("proposSplit");
+  // console.log("proposSplit");
   let flou = gsap.timeline( {  });
   mySplitText = new SplitText(".section-principal", { type: "words,chars" }),
   chars = mySplitText.chars; //an array of all the divs that wrap each character
@@ -73,7 +73,7 @@ function proposSplit() {
 }
 
 function handleNavbarScroll() {
-  console.log("handleNavbarScroll");
+  // console.log("handleNavbarScroll");
   let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
   function handleScroll() {
     const scrollTopPosition = window.scrollY || document.documentElement.scrollTop;
@@ -89,7 +89,7 @@ function handleNavbarScroll() {
 }
 
 function setupTriggerClick() {
-  console.log("setupTriggerClick");
+  // console.log("setupTriggerClick");
   $('.trigger').off("click").click(function() {
     // $('.footer').toggleClass('close');
     if ($(document).innerHeight() < $(window).height() * 3 ) {
@@ -106,7 +106,7 @@ function setupTriggerClick() {
 }
 
 function setupMobileMenu() {
-  console.log("setupMobileMenu");
+  // console.log("setupMobileMenu");
   $(".btn-nav")
       .off("click tap")
       .on("click tap", function() {
@@ -132,7 +132,7 @@ function setupMobileMenu() {
 }
 
 function setupFullpage() {
-  console.log("setupFullpage !!!");
+  // console.log("setupFullpage !!!");
   new fullpage("#fullpage", {
     navigation: true,
     animateAnchor: true,
@@ -149,14 +149,17 @@ function setupFullpage() {
   });
 }
 
-
 function fullPageDestroy() {
-  console.log("fullPageDestroy");
-  fullpage_api.destroy('all');
+  // console.log("fullPageDestroy");
+  if (typeof fullpage_api !== 'undefined') {
+    fullpage_api.destroy('all');
+  } else {
+    // console.log("fullpage_api is not defined, skipping destroy");
+  }
 }
 
 function initializeFullpage() {
-  console.log("initializing fullpage");
+  // console.log("initializing fullpage");
   new fullpage("#fullpage", {
     navigation: true,
     animateAnchor: true,
@@ -173,8 +176,69 @@ function initializeFullpage() {
   });
 }
 
+function destroyLightGallery() {
+  // console.log("Destroying LightGallery");
+  $('.slider-project').each(function() {
+    if ($(this).data('lightGallery')) {
+      $(this).data('lightGallery').destroy(true);
+    }
+  });
+}
+
+
+function initializeLightGallery() {
+  destroyLightGallery();
+  // console.log("Initializing LightGallery");
+  $('.slider-project').each(function() {
+    lightGallery(this, {
+      selector: '.lightgallery',
+      licenseKey: 'c7a99837-f764-4e02-b3e0-db68dd17f191',
+      counter: true,
+      download: false,
+      speed: 300,
+      plugins: [lgZoom],
+      showZoomInOutIcons: true,
+      thumbnail: true,
+      actualSize: false
+    });
+  });
+}
+
+
+function initializeSlickSlider() {
+  // console.log("Initializing Slick Slider");
+  $('.slider-project').slick({
+    draggable: false,
+    useTransform: false,
+    infinite: false,
+    swipeToSlide: true,
+    speed: 600,
+    centerMode: true,
+    variableWidth: true,
+    prevArrow: $('.prev-arrow'),
+    nextArrow: $('.next-arrow')
+  });
+
+  $(document).off('keydown.slick').on('keydown.slick', function(e) {
+    if(e.keyCode == 37) { // Left arrow key
+      $('.slider-project').slick('slickPrev');
+    }
+    if(e.keyCode == 39) { // Right arrow key
+      $('.slider-project').slick('slickNext');
+    }
+  });
+}
+
+function destroySlickSlider() {
+  // console.log("Destroying Slick Slider");
+  if ($('.slider-project').hasClass('slick-initialized')) {
+    $('.slider-project').slick('unslick');
+  }
+}
+
+
 function bindEventHandlers() {
-  console.log("bindEventHandlers");
+  // console.log("bindEventHandlers");
 
   if ($('.navbar').length) {
     handleNavbarScroll();
@@ -202,6 +266,11 @@ function bindEventHandlers() {
     proposSplit();
   }
 
+  if ($('.slider-project').length) {
+    initializeSlickSlider();
+    initializeLightGallery();
+  }
+
   $(".conta")
   .off("click tap")
   .on("click tap", function () {
@@ -211,15 +280,11 @@ function bindEventHandlers() {
 
 $(document).ready(bindEventHandlers);
 
-  const swup = new Swup();
+  const swup = new Swup({
+    linkSelector: 'a:not(.lightgallery)'
+  });
 
   const pageOverlay = document.getElementById("page-transition-overlay");
-  const loader = document.getElementById("loader");
-
-  const heartbeat = gsap.timeline({ repeat: -1, yoyo: true });
-  heartbeat
-    .to(loader, { scale: 1.2, duration: 0.5, ease: "Power1.easeInOut" })
-    .to(loader, { scale: 1, duration: 0.5, ease: "Power1.easeInOut" });
 
   function allImagesLoadedPromise() {
     const images = Array.from(document.images);
@@ -267,6 +332,8 @@ function updateBodyClass() {
 
   if(pageName === "index") {
     document.body.classList.add("home");
+  } else if (!bodyClasses.includes(pageName)) {
+    document.body.classList.add("projets");
   } else {
     document.body.classList.add(pageName);
   }
@@ -275,6 +342,15 @@ function updateBodyClass() {
 function reloadScripts() {
   updateBodyClass();
   bindEventHandlers();
+
+  if (!$("#fullpage").length) {
+    fullPageDestroy();
+  }
+
+  destroyLightGallery();
+  if ($('.slider-project').length) {
+    initializeLightGallery();
+  }
 }
 
 swup.hooks.on('content:replace', reloadScripts);
