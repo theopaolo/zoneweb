@@ -89,8 +89,8 @@ function handleNavbarScroll() {
 }
 
 function setupTriggerClick() {
-  // console.log("setupTriggerClick");
   $('.trigger').off("click").click(function() {
+    console.log("trigger click");
     // $('.footer').toggleClass('close');
     if ($(document).innerHeight() < $(window).height() * 3 ) {
     $('html, body').animate({
@@ -245,6 +245,7 @@ function bindEventHandlers() {
   }
 
   if ($('.trigger').length) {
+    console.log("triggering click present");
     setupTriggerClick();
   }
 
