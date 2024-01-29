@@ -325,13 +325,21 @@ $(document).ready(bindEventHandlers);
   });
 
 
-const bodyClasses = ["home", "rea", "propos", "projets", "amenagement"];
+const bodyClasses = ["home", "rea", "propos", "projets", "amenagement", "article"];
 
 function updateBodyClass() {
   bodyClasses.forEach(cls => document.body.classList.remove(cls));
-  const pageName = window.location.pathname.replace(/\/|\.html/gi, "");
+  // Updated regex to capture folder and file name
+  const pathMatch = window.location.pathname.match(/\/([^\/]+)\/?([^\/]*)\.html$/i);
 
-  if(pageName === "index") {
+  // Extract folder and file name from the URL path
+  const folderName = pathMatch ? pathMatch[1] : '';
+  const pageName = pathMatch ? pathMatch[2] : '';
+
+  console.log(folderName, pageName);
+  if (folderName === "news") {
+    document.body.classList.add("article");
+  } else if(pageName === "index") {
     document.body.classList.add("home");
   } else if (!bodyClasses.includes(pageName)) {
     document.body.classList.add("projets");
