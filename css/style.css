@@ -506,12 +506,15 @@ cursor: pointer;
  nav a{
     color: #fff !important;
 }
+
 .home nav a {
 color: #000 !important;
 }
+
 .home nav {
 color: #000 !important;
 }
+
 .navbar{
     padding: 0;
 }

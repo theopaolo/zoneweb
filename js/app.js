@@ -236,6 +236,16 @@ function destroySlickSlider() {
   }
 }
 
+function playAutoplayVideos() {
+  console.log("Playing Autoplay Videos");
+  let videos = document.querySelectorAll("video[autoplay]");
+  if(videos.length > 0) {
+    videos.forEach(video => {
+      video.play()
+        .catch(error => console.error("Error trying to autoplay video: ", error));
+    });
+  }
+}
 
 function bindEventHandlers() {
   // console.log("bindEventHandlers");
@@ -245,7 +255,6 @@ function bindEventHandlers() {
   }
 
   if ($('.trigger').length) {
-    console.log("triggering click present");
     setupTriggerClick();
   }
 
@@ -325,32 +334,55 @@ $(document).ready(bindEventHandlers);
   });
 
 
-const bodyClasses = ["home", "rea", "propos", "projets", "amenagement", "article"];
+  const bodyClasses = ["home", "rea", "propos", "projets", "amenagement", "article"];
 
-function updateBodyClass() {
-  bodyClasses.forEach(cls => document.body.classList.remove(cls));
-  // Updated regex to capture folder and file name
-  const pathMatch = window.location.pathname.match(/\/([^\/]+)\/?([^\/]*)\.html$/i);
+  function updateBodyClass() {
+      // Remove all predefined body classes
+      bodyClasses.forEach(cls => document.body.classList.remove(cls));
 
-  // Extract folder and file name from the URL path
-  const folderName = pathMatch ? pathMatch[1] : '';
-  const pageName = pathMatch ? pathMatch[2] : '';
+      // Extract the parts of the URL path
+      const path = window.location.pathname;
+      // Match for folder structure or individual files, excluding .html extension
+      const pathMatch = path.match(/\/([^\/]+)\/([^\/]+?)(\/|\.html?)?$/i) || path.match(/\/([^\/]+?)(\.html?)?$/i);
 
-  console.log(folderName, pageName);
-  if (folderName === "news") {
-    document.body.classList.add("article");
-  } else if(pageName === "index") {
-    document.body.classList.add("home");
-  } else if (!bodyClasses.includes(pageName)) {
-    document.body.classList.add("projets");
-  } else {
-    document.body.classList.add(pageName);
+      let folderName = '', pageName = '';
+
+      if (pathMatch) {
+          if (pathMatch.length === 4) {
+              // Path with folder structure
+              folderName = pathMatch[1];
+              pageName = pathMatch[2];
+          } else if (pathMatch.length === 3) {
+              // Path without folder structure
+              pageName = pathMatch[1];
+          }
+      }
+
+      // Check for news subpage
+      if (folderName === "news") {
+          document.body.classList.add("article");
+      }
+      // Check for index page
+      else if (pageName === "index" || path === "/" || path === "/index.html") {
+          document.body.classList.add("home");
+      }
+      // Add the page name as a class if it's one of the predefined classes
+      else if (bodyClasses.includes(pageName)) {
+          document.body.classList.add(pageName);
+      }
+      // Default to "projets" if the page name doesn't match any predefined classes
+      else {
+          document.body.classList.add("projets");
+      }
   }
-}
+
+  // Call the function to update body class
+  updateBodyClass();
 
 function reloadScripts() {
   updateBodyClass();
   bindEventHandlers();
+  playAutoplayVideos();
 
   if (!$("#fullpage").length) {
     fullPageDestroy();
