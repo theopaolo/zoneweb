@@ -333,51 +333,47 @@ $(document).ready(bindEventHandlers);
     });
   });
 
+  let currentDynamicClass = '';
 
-  const bodyClasses = ["home", "rea", "propos", "projets", "amenagement", "article"];
+  const updateBodyClass = () => {
+    const basePattern = /\/(?:new\/)?/;
+    const folderAndFilePattern = /(?:([^\/]+)\/)?(?:([^\/]+))?\.html?\/?$/i;
+    const fullPattern = new RegExp(`${basePattern.source}${folderAndFilePattern.source}`);
 
-  function updateBodyClass() {
-      // Remove all predefined body classes
-      bodyClasses.forEach(cls => document.body.classList.remove(cls));
+    const pathMatch = window.location.pathname.match(fullPattern);
 
-      // Extract the parts of the URL path
-      const path = window.location.pathname;
-      // Match for folder structure or individual files, excluding .html extension
-      const pathMatch = path.match(/\/([^\/]+)\/([^\/]+?)(\/|\.html?)?$/i) || path.match(/\/([^\/]+?)(\.html?)?$/i);
+    if (!pathMatch) {
+      console.warn('No pathMatch found for the given URL.');
+      return;
+    }
 
-      let folderName = '', pageName = '';
+    const folderName = pathMatch[1] || '';
+    const pageName = pathMatch[2] || '';
 
-      if (pathMatch) {
-          if (pathMatch.length === 4) {
-              // Path with folder structure
-              folderName = pathMatch[1];
-              pageName = pathMatch[2];
-          } else if (pathMatch.length === 3) {
-              // Path without folder structure
-              pageName = pathMatch[1];
-          }
-      }
+    if (currentDynamicClass) {
+      document.body.classList.remove(currentDynamicClass);
+    }
 
-      // Check for news subpage
-      if (folderName === "news") {
-          document.body.classList.add("article");
-      }
-      // Check for index page
-      else if (pageName === "index" || path === "/" || path === "/index.html") {
-          document.body.classList.add("home");
-      }
-      // Add the page name as a class if it's one of the predefined classes
-      else if (bodyClasses.includes(pageName)) {
-          document.body.classList.add(pageName);
-      }
-      // Default to "projets" if the page name doesn't match any predefined classes
-      else {
-          document.body.classList.add("projets");
-      }
-  }
+    let newClass = '';
+    if (folderName === "realisation" && pageName) {
+      newClass = "projet";
+    } else if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+      newClass = "home";
+    } else {
+      newClass = pageName || folderName;
+    }
 
-  // Call the function to update body class
-  updateBodyClass();
+    if (newClass) {
+      document.body.classList.add(newClass);
+      currentDynamicClass = newClass;
+    } else {
+      console.warn('newClass is empty, not adding to classList.');
+      currentDynamicClass = '';
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', updateBodyClass);
+
 
 function reloadScripts() {
   updateBodyClass();
